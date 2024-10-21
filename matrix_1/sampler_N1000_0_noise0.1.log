@@ -1,0 +1,5 @@
+N = 1000
+burn = 500
+dim_like = 784
+noise_var = 0.1
+SIGINT or CTRL-C detected. Exiting gracefully
