@@ -1,21 +1,20 @@
 #!/usr/bin/env python
-
 import os
-
-
 # Restrict multithreading in numpy/scipy/scikit calls to 1 thread
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 os.environ['MKL_NUM_THREADS'] = '1'
-
+# For thermal conductivity
 from HT_2D_k import compute_multi_heat_boundaries_with_flux, compute_multi_heat_boundaries_downsample, compute_heat_bulk
 from mcmc_inference_bulk_compute import get_pyplot_node_order
+# For using GAN and MCMC
 import numpy as np
 from tensorflow.keras.models import load_model
 import tensorflow_probability as tfp
 import tensorflow as tf
+
 import sys
 import time
-
+# Detect CRTL-C to exit the program
 from signal import signal, SIGINT
 from sys import exit
 
