@@ -1,8 +1,6 @@
 #!/usr/bin/env python
-
 import os
-
-# Restrict multithreading in numpy/scipy/scikit calls to 1 thread
+# Restrict multithreading in numpy/scipy/scikit
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 os.environ['MKL_NUM_THREADS'] = '1'
 

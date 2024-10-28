@@ -11,19 +11,17 @@ import numpy as np
 from tensorflow.keras.models import load_model
 import tensorflow_probability as tfp
 import tensorflow as tf
-
 import sys
 import time
-# Detect CRTL-C to exit the program
 from signal import signal, SIGINT
 from sys import exit
 
+# Turn off the parallelism in tensorflow
 tf.config.run_functions_eagerly(True)
 tf.config.threading.set_intra_op_parallelism_threads(1)
 tf.config.threading.set_inter_op_parallelism_threads(1)
 
-
-
+# Detect CRTL-C to exit the program
 def handler(signal_received, frame):
     # Handle any cleanup here
     print('SIGINT or CTRL-C detected. Exiting gracefully')
@@ -31,18 +29,17 @@ def handler(signal_received, frame):
 
 signal(SIGINT, handler)
 
+# Store all the avaliable GPUs to the array
 tf.config.set_visible_devices([], 'GPU')
 
+# Allow the code to run on CPU
 with tf.device('/cpu:0'):
     t_start = time.time()
-
     # Create tensorflow_probability distribution
     tfd = tfp.distributions
-
     # CODES = os.environ['CODES']
 
     # Get run parameters
-
     # Number of samples in markov chain
     N = int(sys.argv[1])
     # Target image id
@@ -78,13 +75,20 @@ with tf.device('/cpu:0'):
     node_order = get_pyplot_node_order(nx, ny)
     
     # GAN parameters (hard coded :( )
+    
+    # Learning Rate  for the GAN
     gan_lr = '0.0002'
+    # # of critic iterations
     gan_n_critic = '5'
+    
     gan_bilinear = 'bilinear_'
+    
     gan_gen_k = '5'
-
+    # Architecture type
     arch = 'B'
+    # Learning rate
     lr = '0.001'
+    
     n_critic = '5'
     gen_k = '5'
     disc_k = '5'
@@ -154,6 +158,10 @@ with tf.device('/cpu:0'):
 
     np.save(target_storage, y_hat4d)
 
+
+
+
+
     def joint_log_prob(z):
         gen_out = gan(z)
         gen_out = gen_out.numpy()[0].squeeze()
@@ -176,6 +184,9 @@ with tf.device('/cpu:0'):
 
         # Return log( prior * like) = log(prior) + log(like)
         return (prior.log_prob(z) + like.log_prob(diff_img))
+
+
+
 
     def unnormalized_posterior(z):
         return joint_log_prob(z)
@@ -200,6 +211,12 @@ with tf.device('/cpu:0'):
 
         p_accept = tf.reduce_mean(tf.exp(tf.minimum(log_accept_ratio, 0.)))
         return samples, st_size, log_accept_ratio, p_accept
+
+
+
+
+
+
 
     samples, st_size, log_accept_ratio, p_accept = run_chain()
 
