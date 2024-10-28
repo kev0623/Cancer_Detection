@@ -1,0 +1,4 @@
+N = 150
+burn = 75
+dim_like = 784
+noise_var = 0.01

@@ -7,8 +7,6 @@ os.environ['OPENBLAS_NUM_THREADS'] = '1'
 os.environ['MKL_NUM_THREADS'] = '1'
 
 import numpy as np
-from tensorflow.keras.models import load_model
-import tensorflow as tf
 import matplotlib.pyplot as plt
 import sys
 import time
@@ -18,6 +16,8 @@ import time
 
 from HT_2D_k import compute_multi_heat_boundaries_with_flux, compute_heat_bulk
 from mcmc_inference_bulk_compute import get_pyplot_node_order
+from tensorflow.keras.models import load_model
+import tensorflow as tf
 
 tf.config.threading.set_intra_op_parallelism_threads(1)
 tf.config.threading.set_inter_op_parallelism_threads(1)
@@ -82,7 +82,7 @@ with tf.device('/cpu:0'):
         y_hat4d = np.load(f)
 
     # Load true target
-    image_filename = f'/home/kai_chun/Projects/Independent Study/Week 6/images/mnist_img_{target_id}.png'.format(CODES, val_max, nx, ny, target_id)
+    image_filename = f'/home/kai_chun/Projects/Independent Study/Week 6/images/mnist_img_{target_id}.png'
     image = tf.keras.utils.load_img(image_filename, color_mode='grayscale', target_size=None,)
     input_arr = tf.keras.preprocessing.image.img_to_array(image)
     input_arr = input_arr/127.5 - 1

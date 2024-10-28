@@ -113,10 +113,10 @@ with tf.device('/cpu:0'):
 
     burn = int(burn_in * N)
 
-    print('N = {}'.format(N))
-    print('burn = {}'.format(burn))
-    print('dim_like = {}'.format(dim_like))
-    print('noise_var = {}'.format(noise_var))
+    print(f'N = {N}')
+    print(f'burn = {burn}')
+    print(f'dim_like = {dim_like}')
+    print(f'noise_var = {noise_var}')
 
     ## Create test input
     image_filename = f'/home/kai_chun/Projects/Independent Study/Week 6/images/mnist_img_{target_id}.png'
