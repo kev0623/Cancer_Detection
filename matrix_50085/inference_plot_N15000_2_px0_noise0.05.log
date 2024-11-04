@@ -1,0 +1,6 @@
+Inference plotting
+N = 15000
+job_dir = matrix_50085
+matrix_id = 50085
+iteration = 2
+num_px = 0
