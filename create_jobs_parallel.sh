@@ -16,7 +16,7 @@ for n in `seq 50200 50205`;
 
 
 do
-    for i in `seq 1 30`;
+    for i in `seq 1 3`;
     do
         if [ ! -d matrix_$n ]
         then
