@@ -2,28 +2,36 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-# Create a figure and an axes object
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+nx = 28
+ny = 28
+nz = 28
+r_min = 0.2
+r_max = 0.8
+# Create a figure with a black background
+fig = plt.figure(facecolor="black")
+ax = plt.axes(projection="3d")
 
-# Generate the sphere data
+# Define parameters for the sphere
 u = np.linspace(0, 2 * np.pi, 100)
 v = np.linspace(0, np.pi, 100)
-x = np.outer(np.cos(u), np.sin(v))
-y = np.outer(np.sin(u), np.sin(v))
-z = np.outer(np.ones(np.size(u)), np.cos(v))
+r = np.random.uniform(r_min, r_max,1)*nx
 
-# Plot the sphere
-ax.plot_surface(x, y, z, color='b', alpha=0.3)
+# x, y, z coordinates for the sphere
+x0 = np.random.uniform(r_min, r_max, 1) * nx
+y0 = np.random.uniform(r_min, r_max, 1) * ny 
+z0 = np.random.uniform(r_min, r_max, 1) * nz
+x = r * np.outer(np.cos(u), np.sin(v)) + x0
+y = r * np.outer(np.sin(u), np.sin(v)) + y0
+z = r * np.outer(np.ones(np.size(u)), np.cos(v)) + z0
 
-# Set the aspect of the plot to be equal
-ax.set_box_aspect([1,1,1]) 
+# Plot the sphere with the approximated color from your image
+ax.plot_surface(x, y, z, color="#F4A460")  # Use a peach-like color
 
-# Set labels and title
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
-plt.title('3D Sphere')
+# Set plot limits to keep it centered and remove the axis lines
+ax.set_xlim(-28, 28)
+ax.set_ylim(-28, 28)
+ax.set_zlim(-28, 28)
 
-# Show the plot
+# Display and save the plot as an image if running in a headless environment
+plt.savefig("approximated_sphere.png", dpi=300, bbox_inches='tight', facecolor="black")
 plt.show()
